@@ -20,8 +20,11 @@ module.exports = {
       ? configPrefix.find((prefix) => message.content.startsWith(prefix))
       : configPrefix;
 
+    if (!message.content.startsWith(prefix)) return;
+
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
+    if (!command) return;
     const cmd =
       client.commands.get(command) ||
       client.commands.get(client.aliases.get(command));
